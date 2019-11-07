@@ -19,7 +19,7 @@ def create_vpn_droplet():
     mngr = manager(conf_dict)
     ssh_key = mngr.get_ssh_key(conf_dict['sshKeyId'])
 
-    d = Droplet(token=token,
+    droplet = Droplet(token=token,
                 name=('vpn-%s' % time_ns()),
                 region=conf_dict['region'],
                 image='openvpn-18-04',
@@ -27,9 +27,9 @@ def create_vpn_droplet():
                 ssh_keys=[ssh_key],
                 tags=['vpn'],
                 backups=False)
-    d.create()
-    print("Droplet: %s(id:%s) created. Ip addr: %s" % (d.name, d.id, d.ip_address))
-    return d
+    droplet.create()
+    print("Droplet: %s(id:%s) created. Ip addr: %s" % (droplet.name, droplet.id, droplet.ip_address))
+    return droplet
 
 
 def get_first_droplet_by_tag(tag):
